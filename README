@@ -1,0 +1,11 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=3644
+
+this plugin can use gtd in vim.
+
+this plugin need vimwiki and snipmate,please install them first.
+
+cmd:
+:TaskToday      list the tasks that today should do.
+:TaskAll           list all tasks that should do.
+:TaskDoneOrDoingByDate      list the task that you done or doing in the past time.
+:TaskBackup    backup the files

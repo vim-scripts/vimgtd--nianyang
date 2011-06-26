@@ -1,0 +1,32 @@
+snippet *
+	* [ ] ${1}
+snippet #
+	# [ ] ${1}
+snippet -
+	- [ ] ${1}
+snippet task
+	${1:title}${2: DETAIL=[[detail/`strftime("%Y%m%d_%H%M%S")`]]} LEVEL=${3:3} START=${4:`strftime("%Y-%m-%d")`} EXPIRE=${5:`strftime("%Y-%m-%d")`}
+snippet detail
+	DETAIL=[[${1:detail/`strftime("%Y%m%d_%H%M%S")`}]]
+snippet tpl
+	= Diary =
+		|[[diary/diary]]|
+
+	= Inbox =
+
+	= Action =
+
+	= Project =
+
+	= Wait =
+
+	= Someday =
+
+	= SelfImprove =
+
+	= Home =
+
+	= Backup =
+	<!--{{{-->
+	<!--}}}-->
+	<!-- vim: set fdm=marker:-->
