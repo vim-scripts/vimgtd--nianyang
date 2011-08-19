@@ -3,14 +3,16 @@
 "  Email:           zny2008@gmail.com
 "  FileName:        wikigtd.vim
 "  Description:     搭配vimwiki制作自己的gtd管理
-"  Version:         1.0
+"  Version:         1.1
 "  LastChange:      2011-01-04 11:44:22
-"  History:         
+"  History:         默认不使用index.wiki，而是用 task/task，并且可以配置
 "=============================================================================
 if exists('g:loaded_wikigtd')
     finish
 endif
 let g:loaded_wikigtd = 1
+"可以自定义的首页地址
+let g:wikigtd_index = 'task/task'
 
 "定义好的变量名字
 let s:STARTNAME = 'START'
@@ -42,6 +44,12 @@ function! s:TaskSynMapInit()
     nnoremap <buffer><silent> u u:TaskSyn<cr>
     nnoremap <buffer><silent> p p:TaskSyn<cr>
     nnoremap <buffer><silent> <C-R> <C-R>:TaskSyn<cr>
+endfunction
+
+function! s:TaskIndex()
+    cclose
+    exec ":setf vimwiki"
+    exec ":VimwikiGoto " . g:wikigtd_index
 endfunction
 
 "在切换状态的同时，自动把一些字段换掉
@@ -103,8 +111,7 @@ function s:SortByLevel(i1,i2)
     endif
 endfunction
 function s:ListNeedDo(mtype)
-    cclose
-    exec ":VimwikiIndex"
+    call s:TaskIndex()
 
     let todayDate = strftime("%Y-%m-%d")
     let normalList = []
@@ -158,8 +165,7 @@ function s:ListNeedDo(mtype)
 endfunction
 function s:ListDoneOrDoingByDate(...)
     let pdate = (a:0 ? a:1 : strftime("%Y-%m-%d"))
-    cclose
-    exec ":VimwikiIndex"
+    call s:TaskIndex()
 
     let doneList = []
     let doingList = []
