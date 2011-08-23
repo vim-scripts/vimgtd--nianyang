@@ -3,9 +3,10 @@
 "  Email:           zny2008@gmail.com
 "  FileName:        wikigtd.vim
 "  Description:     搭配vimwiki制作自己的gtd管理
-"  Version:         1.1
+"  Version:         1.2
 "  LastChange:      2011-01-04 11:44:22
-"  History:         默认不使用index.wiki，而是用 task/task，并且可以配置
+"  History:         backup目录的问题解决
+"                   默认不使用index.wiki，而是用 task/task，并且可以配置
 "=============================================================================
 if exists('g:loaded_wikigtd')
     finish
@@ -216,14 +217,15 @@ endfunction
 
 "把主文件备份到 g:vimwiki_list[0]['path']
 function s:TaskBackup()
-    let basePath = g:vimwiki_list[0]['path']
-    let backupDir = basePath . '/backup/'
+    let prefix_name = matchstr(g:wikigtd_index, '.*/')
+    let basePath = g:vimwiki_list[0]['path'] . prefix_name
+    let backupDir = basePath . 'backup/'
     if !isdirectory(backupDir)
         call mkdir(backupDir, "p", 0700)
     endif
 
-    let srcFilePath = basePath . "/index.wiki"
-    let destFilePath = backupDir . "index_" .strftime("%Y%m%d_%H%M%S")
+    let srcFilePath = g:vimwiki_list[0]['path'] . g:wikigtd_index . '.wiki'
+    let destFilePath = backupDir . "backup_" .strftime("%Y%m%d_%H%M%S")
 
     let cmd = '!cat '.srcFilePath.' > '.destFilePath
 
